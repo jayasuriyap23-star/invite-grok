@@ -1,499 +1,1925 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KVS Family | Sacred Union</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&family=Noto+Sans+SC:wght@400;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priya & Arjun — A Sacred Union</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Playfair+Display:ital,wght@0,600;1,600&family=Yatra+One&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   DESIGN TOKENS
+   ========================================================================== */
+:root{
+  --maroon-deep:#4a1522;
+  --maroon:#7a2333;
+  --maroon-soft:#95465a;
+  --gold:#c9a24b;
+  --gold-light:#e6c878;
+  --gold-dim:#b89355;
+  --ivory:#ffffff;
+  --ivory-dim:#faf7f1;
+  --saffron:#d97a3a;
+  --emerald:#1f6e52;
+  --blush:#e9b9ab;
 
-        :root {
-            --gold: #D4AF37;
-            --purple: #4B0082;
-            --maroon: #800000;
-            --ivory: #F5F0E1;
-        }
+  --display:'Cormorant Garamond', serif;
+  --accent-font:'Yatra One', cursive;
+  --body:'Jost', sans-serif;
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(180deg, #2C003E 0%, #1A0026 100%);
-            color: var(--ivory);
-            overflow-x: hidden;
-        }
+  --container:1100px;
+}
 
-        .ta { font-family: 'Noto Sans SC', 'Poppins', sans-serif; }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ivory);
+  color:var(--maroon-deep);
+  font-family:var(--body);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 
-        /* Falling Petals */
-        .petals {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 10;
-            overflow: hidden;
-        }
+.wrap{max-width:var(--container);margin:0 auto;padding:0 24px;}
 
-        .petal {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: linear-gradient(45deg, #FF69B4, #FFB6C1);
-            border-radius: 40% 60% 60% 40%;
-            opacity: 0.85;
-            animation: petal-fall linear forwards;
-            box-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
-        }
+h1,h2,h3{font-family:var(--display);font-weight:600;color:var(--maroon);}
+.eyebrow{
+  font-family:var(--accent-font);
+  color:var(--saffron);
+  letter-spacing:.08em;
+  font-size:.95rem;
+  display:block;
+  margin-bottom:10px;
+}
 
-        @keyframes petal-fall {
-            to {
-                transform: translateY(110vh) rotate(1080deg);
-            }
-        }
+/* ==========================================================================
+   ORNAMENT LIBRARY (signature arch motif, dividers, diyas)
+   ========================================================================== */
+.gopuram-divider{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin:8px 0 28px;
+  opacity:.85;
+}
+.gopuram-divider svg{width:150px;height:auto;}
 
-        /* Header / Nav */
-        nav {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+.section-title{
+  text-align:center;
+  margin-bottom:56px;
+}
+.section-title h2{
+  font-size:clamp(2.1rem,4vw,3.2rem);
+  line-height:1.15;
+}
+.section-title p{
+  max-width:560px;
+  margin:14px auto 0;
+  color:var(--maroon-soft);
+  font-weight:300;
+  line-height:1.7;
+}
 
-        .lang-btn {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            padding: 10px 22px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
+.corner-frame{position:relative;}
+.corner-frame::before,.corner-frame::after{
+  content:"";
+  position:absolute;
+  width:34px;height:34px;
+  border:2px solid var(--gold);
+  opacity:.7;
+}
+.corner-frame::before{top:-10px;left:-10px;border-right:none;border-bottom:none;}
+.corner-frame::after{bottom:-10px;right:-10px;border-left:none;border-top:none;}
 
-        .lang-btn:hover {
-            background: var(--gold);
-            color: #2C003E;
-        }
+/* ==========================================================================
+   PETALS / AMBIENT PARTICLES (continuous, canvas-based)
+   ========================================================================== */
+#petal-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:40;
+}
 
-        /* Opening */
-        #opening {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(rgba(44,0,62,0.85), rgba(44,0,62,0.9)), url('https://picsum.photos/id/1015/2000/1200') center/cover;
-            position: relative;
-        }
+/* ==========================================================================
+   ENTRANCE / TEMPLE DOORS
+   ========================================================================== */
+#entrance{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:
+    radial-gradient(ellipse at center 30%, rgba(201,162,75,.16), transparent 60%),
+    linear-gradient(180deg,#ffffff,#faf5ea 55%,#ffffff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  transition:opacity 1s ease;
+}
+#entrance.hidden{opacity:0;pointer-events:none;}
 
-        #opening::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent, rgba(75,0,130,0.6));
-        }
+.entrance-inner{
+  position:relative;
+  text-align:center;
+  color:var(--maroon);
+  z-index:20;
+  padding:20px;
+}
+.om-symbol{
+  font-size:3.2rem;
+  color:var(--saffron);
+  text-shadow:0 0 20px rgba(226,128,58,.4);
+  animation:glow-pulse 3.5s ease-in-out infinite;
+}
+.entrance-inner .sacred-text{
+  font-family:var(--accent-font);
+  font-size:clamp(1.1rem,2.4vw,1.6rem);
+  margin-top:10px;
+  letter-spacing:.05em;
+  color:var(--maroon-soft);
+}
+.entrance-inner .invite-names{
+  font-family:var(--display);
+  font-size:clamp(2.4rem,6vw,4.2rem);
+  margin:28px 0 6px;
+  color:var(--maroon);
+}
+.entrance-inner .invite-sub{
+  font-weight:300;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  font-size:.75rem;
+  color:var(--maroon-soft);
+  margin-bottom:44px;
+}
 
-        .gate {
-            font-size: 6.5rem;
-            margin-bottom: 20px;
-            animation: gate-glow 3s infinite alternate;
-        }
+@keyframes glow-pulse{
+  0%,100%{ text-shadow:0 0 14px rgba(226,128,58,.25); }
+  50%{ text-shadow:0 0 26px rgba(226,128,58,.6); }
+}
 
-        @keyframes gate-glow {
-            from { text-shadow: 0 0 20px var(--gold); }
-            to { text-shadow: 0 0 60px var(--gold), 0 0 90px #FFD700; }
-        }
+/* temple door panels */
+.door{
+  position:absolute;
+  top:0;bottom:0;
+  width:52%;
+  background:
+    linear-gradient(180deg,#ffffff,#f3e9d2);
+  border:3px solid var(--gold);
+  box-shadow:inset 0 0 60px rgba(201,162,75,.15);
+  transition:transform 1.4s cubic-bezier(.77,0,.18,1);
+  z-index:5;
+}
+.door::before{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:2px solid var(--maroon-soft);
+  opacity:.4;
+}
+.door.left{left:0;transform-origin:left center;}
+.door.right{right:0;transform-origin:right center;}
+#entrance.open .door.left{transform:rotateY(-108deg) translateX(-6%);}
+#entrance.open .door.right{transform:rotateY(108deg) translateX(6%);}
 
-        .open-btn {
-            margin-top: 50px;
-            padding: 18px 55px;
-            font-size: 1.6rem;
-            background: transparent;
-            color: var(--gold);
-            border: 3px solid var(--gold);
-            border-radius: 60px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            font-family: 'Playfair Display', serif;
-        }
+.open-btn{
+  position:relative;
+  z-index:6;
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  color:var(--maroon-deep);
+  border:none;
+  padding:16px 42px;
+  font-size:1.05rem;
+  letter-spacing:.08em;
+  border-radius:40px;
+  box-shadow:0 8px 30px rgba(201,162,75,.35);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.open-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,162,75,.5);}
+.open-btn:active{transform:translateY(0);}
 
-        .open-btn:hover {
-            background: var(--gold);
-            color: var(--purple);
-            transform: scale(1.08);
-        }
+.diya-row{
+  display:flex;gap:18px;justify-content:center;margin-bottom:26px;
+}
+.diya{font-size:1.6rem;animation:flicker 1.8s ease-in-out infinite;}
+.diya:nth-child(2){animation-delay:.3s;}
+.diya:nth-child(3){animation-delay:.6s;}
+.diya:nth-child(4){animation-delay:.9s;}
+@keyframes flicker{
+  0%,100%{opacity:1;transform:translateY(0) scale(1);}
+  50%{opacity:.65;transform:translateY(-2px) scale(.95);}
+}
 
-        /* Sections */
-        .section {
-            padding: 100px 20px;
-            position: relative;
-        }
+/* ==========================================================================
+   HEADER / MUSIC CONTROLS
+   ========================================================================== */
+#music-controls{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  z-index:60;
+  background:rgba(251,243,230,.95);
+  backdrop-filter:blur(6px);
+  border:1px solid var(--gold-dim);
+  border-radius:40px;
+  padding:8px 14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--maroon);
+  box-shadow:0 6px 20px rgba(92,18,32,.15);
+  opacity:1;
+  transition:opacity .6s ease;
+}
+.music-icon{
+  font-size:1.15rem;
+  display:inline-block;
+  animation:note-spin 6s linear infinite;
+  animation-play-state:paused;
+}
+.music-icon.playing{animation-play-state:running;}
+@keyframes note-spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+#music-controls button{
+  background:none;border:none;color:var(--maroon);font-size:1.1rem;
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;transition:background .2s;
+}
+#music-controls button:hover{background:rgba(201,162,75,.18);}
+#music-controls input[type=range]{width:70px;accent-color:var(--gold);}
 
-        .content {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+/* ==========================================================================
+   REVEAL-ON-SCROLL
+   ========================================================================== */
+.reveal{
+  opacity:0;
+  transform:translateY(36px);
+  transition:opacity .9s ease, transform .9s ease;
+}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity 1s ease, transform 1s ease;}
+.reveal-scale.in{opacity:1;transform:scale(1);}
 
-        .heading {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4.2rem;
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 40px;
-            text-shadow: 0 4px 15px rgba(212,175,55,0.4);
-        }
+/* ==========================================================================
+   SECTION: FAMILY INVITATION
+   ========================================================================== */
+.section{padding:110px 0;position:relative;}
+.section.maroon-bg{
+  background:linear-gradient(180deg,#ffffff,#faf5ea 50%,#ffffff);
+  color:var(--maroon-soft);
+}
+.section.maroon-bg h2{color:var(--maroon);}
+.section.maroon-bg .eyebrow{color:var(--saffron);}
 
-        .mantra {
-            text-align: center;
-            font-size: 2.4rem;
-            color: var(--gold);
-            margin: 20px 0 40px;
-            font-family: 'Playfair Display', serif;
-        }
+#family{text-align:center;}
+#family .family-name{
+  font-size:clamp(2.6rem,5vw,4rem);
+  margin:10px 0 26px;
+}
+#family .family-msg{
+  max-width:620px;
+  margin:0 auto;
+  font-weight:300;
+  line-height:1.9;
+  font-size:1.15rem;
+  color:var(--maroon-soft);
+}
 
-        /* Couple */
-        #couple {
-            display: flex;
-            justify-content: center;
-            gap: 90px;
-            flex-wrap: wrap;
-            background: linear-gradient(to bottom, #3C0A4A, #2C003E);
-        }
+/* ==========================================================================
+   SECTION: THE COUPLE
+   ========================================================================== */
+.couple-grid{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:40px;
+  align-items:center;
+}
+@media(max-width:760px){
+  .couple-grid{grid-template-columns:1fr;justify-items:center;}
+}
+.name-frame{
+  padding:30px 20px;
+  min-width:220px;
+  text-align:center;
+}
+.person-name{
+  text-align:center;
+  font-family:'Playfair Display', var(--display), serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:clamp(2rem,4.2vw,2.7rem);
+  color:var(--maroon);
+  letter-spacing:.01em;
+}
+.person-role{
+  text-align:center;
+  font-family:var(--accent-font);
+  color:var(--saffron);
+  font-size:clamp(1.4rem,2.6vw,1.9rem);
+  letter-spacing:.04em;
+  margin-top:16px;
+}
 
-        .couple-card {
-            text-align: center;
-            transition: transform 0.5s;
-        }
+/* ---- Name plate: arched temple-niche style card for bride/groom names ---- */
+.name-plate{
+  position:relative;
+  width:250px;
+  max-width:100%;
+  margin:0 auto;
+  padding:56px 22px 34px;
+  background:linear-gradient(180deg,#ffffff,#fdf6e8);
+  border:2px solid var(--gold);
+  border-radius:130px 130px 14px 14px;
+  box-shadow:0 20px 46px rgba(122,35,51,.12);
+  text-align:center;
+}
+.name-plate::before{
+  content:"";
+  position:absolute;
+  inset:9px 9px auto 9px;
+  bottom:9px;
+  border:1px solid var(--gold-dim);
+  border-radius:110px 110px 8px 8px;
+  pointer-events:none;
+}
+.name-plate .finial{
+  position:absolute;
+  top:-19px;left:50%;
+  transform:translateX(-50%);
+  width:38px;height:38px;
+  color:var(--gold);
+  background:#fff;
+  border-radius:50%;
+  padding:4px;
+}
+.name-plate .finial svg{width:100%;height:100%;display:block;}
+.name-plate .side-vine{
+  position:absolute;
+  top:64px;bottom:30px;
+  width:14px;
+  color:var(--gold-dim);
+  opacity:.55;
+}
+.name-plate .side-vine.left{left:6px;}
+.name-plate .side-vine.right{right:6px;transform:scaleX(-1);}
+.name-plate .side-vine svg{width:100%;height:100%;}
+.name-plate .plate-name{
+  font-family:'Playfair Display', var(--display), serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:clamp(1.9rem,4vw,2.5rem);
+  color:var(--maroon);
+  letter-spacing:.01em;
+}
+.name-plate .plate-divider{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:14px 0 12px;
+}
+.name-plate .plate-divider span{width:26px;height:1px;background:var(--gold-dim);display:block;}
+.name-plate .plate-divider i{
+  width:6px;height:6px;background:var(--gold);transform:rotate(45deg);display:block;
+}
+.name-plate .plate-role{
+  font-family:var(--accent-font);
+  color:var(--saffron);
+  font-size:clamp(1.3rem,2.4vw,1.7rem);
+  letter-spacing:.04em;
+}
 
-        .couple-card:hover {
-            transform: translateY(-15px);
-        }
+.monogram{
+  font-family:var(--display);
+  font-size:clamp(3rem,7vw,5.5rem);
+  color:var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.monogram .amp{font-style:italic;color:var(--saffron);font-size:.7em;}
 
-        .couple-img {
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 18px solid var(--gold);
-            box-shadow: 0 0 50px rgba(212,175,55,0.7);
-        }
+/* ---- Royal flourish name frame (used for the couple's names) ---- */
+.royal-frame{
+  position:relative;
+  display:inline-block;
+  padding:34px 58px;
+  border:1.5px solid var(--gold);
+  border-radius:2px;
+  background:
+    radial-gradient(ellipse at center, rgba(201,162,75,.07), transparent 70%);
+}
+.royal-frame::before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:1px solid var(--gold-dim);
+  pointer-events:none;
+}
+.royal-frame .corner{
+  position:absolute;
+  width:28px;height:28px;
+  color:var(--gold);
+  pointer-events:none;
+}
+.royal-frame .corner svg{width:100%;height:100%;display:block;}
+.royal-frame .corner.tl{top:-14px;left:-14px;}
+.royal-frame .corner.tr{top:-14px;right:-14px;transform:scaleX(-1);}
+.royal-frame .corner.bl{bottom:-14px;left:-14px;transform:scaleY(-1);}
+.royal-frame .corner.br{bottom:-14px;right:-14px;transform:scale(-1,-1);}
+.royal-frame .royal-names{
+  font-family:var(--display);
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  color:var(--maroon);
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+.royal-frame .royal-names .amp{
+  font-style:italic;
+  color:var(--saffron);
+  margin:0 12px;
+  font-size:.75em;
+}
+.royal-frame .royal-sub{
+  display:block;
+  text-align:center;
+  font-family:var(--accent-font);
+  font-size:.7rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--gold-dim);
+  margin-top:10px;
+}
+@media(max-width:520px){
+  .royal-frame{padding:26px 22px;}
+  .royal-frame .royal-names{white-space:normal;}
+}
 
-        .name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.8rem;
-            color: var(--gold);
-            margin: 25px 0 8px;
-        }
+/* ==========================================================================
+   SECTION: OUR FOREVER BEGINS / COUNTDOWN
+   ========================================================================== */
+.quote-block{
+  text-align:center;
+  max-width:680px;
+  margin:0 auto 50px;
+  font-family:var(--display);
+  font-style:italic;
+  font-size:clamp(1.4rem,2.6vw,1.9rem);
+  color:var(--maroon);
+  line-height:1.6;
+}
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+  flex-wrap:wrap;
+  margin-bottom:40px;
+}
+.countdown .unit{
+  background:#ffffff;
+  border:1px solid var(--gold-dim);
+  border-radius:16px;
+  width:110px;
+  padding:20px 8px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(92,18,32,.08);
+}
+.countdown .unit .num{
+  font-family:var(--display);
+  font-size:2.6rem;
+  color:var(--maroon);
+  line-height:1;
+}
+.countdown .unit .lbl{
+  font-size:.7rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--maroon-soft);
+  margin-top:8px;
+}
+.cal-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.cal-btn{
+  border:1px solid var(--gold);
+  background:rgba(255,255,255,.4);
+  color:var(--maroon);
+  padding:12px 26px;
+  border-radius:30px;
+  font-size:.9rem;
+  letter-spacing:.04em;
+  transition:background .25s ease, color .25s ease;
+}
+.cal-btn:hover{background:var(--gold);color:#fff;}
 
-        /* Countdown */
-        #countdown {
-            text-align: center;
-            background: var(--purple);
-        }
+/* ==========================================================================
+   SECTION: CELEBRATION DETAILS (cards)
+   ========================================================================== */
+.details-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:36px;
+}
+@media(max-width:760px){.details-grid{grid-template-columns:1fr;}}
+.detail-card{
+  background:var(--ivory);
+  border:1px solid var(--gold-dim);
+  border-radius:18px;
+  padding:40px 34px;
+  position:relative;
+  box-shadow:0 16px 40px rgba(92,18,32,.08);
+}
+.detail-card h3{font-size:1.7rem;margin-bottom:18px;}
+.detail-card .row{
+  display:flex;gap:12px;margin-bottom:12px;
+  font-weight:300;color:var(--maroon-soft);
+}
+.detail-card .row b{
+  min-width:100px;color:var(--maroon);font-weight:600;
+}
 
-        .timer {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
+/* ==========================================================================
+   SECTION: WEDDING STORY
+   ========================================================================== */
+.story-text{
+  max-width:700px;margin:0 auto;text-align:center;
+  font-weight:300;line-height:2;font-size:1.15rem;color:var(--maroon-soft);
+}
 
-        .time-box {
-            background: rgba(255,255,255,0.1);
-            padding: 25px 18px;
-            border-radius: 16px;
-            min-width: 110px;
-            border: 2px solid var(--gold);
-        }
+/* ==========================================================================
+   SECTION: TIMELINE
+   ========================================================================== */
+.timeline-day{margin-bottom:70px;}
+.timeline-day-title{
+  text-align:center;font-size:1.5rem;
+  font-family:var(--accent-font);
+  color:var(--saffron);margin-bottom:40px;
+}
+.timeline{
+  position:relative;
+  max-width:720px;margin:0 auto;
+  padding-left:38px;
+  border-left:2px solid var(--gold-dim);
+}
+.tl-item{
+  position:relative;
+  padding-bottom:38px;
+}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item .dot{
+  position:absolute;left:-46px;top:2px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 0 5px rgba(201,162,75,.18);
+}
+.tl-item .icon{font-size:1.3rem;margin-right:8px;}
+.tl-item h4{
+  font-family:var(--display);font-size:1.35rem;color:var(--maroon);display:inline;
+}
+.tl-item p{color:var(--maroon-soft);font-weight:300;margin-top:6px;line-height:1.6;}
 
-        .time-num {
-            font-size: 3.2rem;
-            font-weight: bold;
-            color: var(--gold);
-        }
+/* ==========================================================================
+   SECTION: VENUE & TRAVEL
+   ========================================================================== */
+.venue-grid{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:start;
+}
+@media(max-width:800px){.venue-grid{grid-template-columns:1fr;}}
+.map-frame{
+  border-radius:18px;overflow:hidden;border:3px solid var(--gold);
+  box-shadow:0 20px 50px rgba(92,18,32,.15);
+}
+.map-frame iframe{width:100%;height:340px;border:0;display:block;}
+.travel-list{list-style:none;}
+.travel-list li{
+  padding:14px 0;border-bottom:1px dashed var(--gold-dim);
+  font-weight:300;color:var(--maroon-soft);
+}
+.travel-list li b{color:var(--maroon);font-weight:600;}
+.direction-btn{
+  display:inline-block;margin-top:18px;
+  background:var(--emerald);color:var(--ivory);
+  padding:12px 28px;border-radius:30px;font-size:.9rem;letter-spacing:.03em;
+  transition:transform .25s ease;
+}
+.direction-btn:hover{transform:translateY(-2px);}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .heading { font-size: 3rem; }
-            .name { font-size: 2.8rem; }
-            .couple-img { width: 240px; height: 240px; }
-        }
-    </style>
+/* ==========================================================================
+   FORMS: RSVP + WISHES
+   ========================================================================== */
+.form-card{
+  max-width:560px;margin:0 auto;
+  background:var(--ivory);border:1px solid var(--gold-dim);
+  border-radius:18px;padding:44px 38px;
+  box-shadow:0 16px 40px rgba(92,18,32,.08);
+}
+.field{margin-bottom:20px;}
+.field label{
+  display:block;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--maroon-soft);margin-bottom:8px;
+}
+.field input,.field select,.field textarea{
+  width:100%;padding:12px 14px;border-radius:10px;
+  border:1px solid var(--gold-dim);background:#fff;
+  font-family:var(--body);font-size:1rem;color:var(--maroon-deep);
+}
+.field textarea{resize:vertical;min-height:90px;}
+.submit-btn{
+  width:100%;padding:14px;border:none;border-radius:30px;
+  background:linear-gradient(135deg,var(--saffron),var(--maroon));
+  color:var(--ivory);font-size:1rem;letter-spacing:.05em;
+  transition:opacity .2s ease;
+}
+.submit-btn:hover{opacity:.9;}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;}
+.form-msg{margin-top:14px;text-align:center;font-size:.9rem;color:var(--emerald);min-height:20px;}
+
+/* special invitation banner */
+.special-invite{
+  text-align:center;max-width:640px;margin:0 auto;
+  font-family:var(--display);font-style:italic;
+  font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.7;color:var(--maroon);
+}
+
+/* guest wishes wall */
+.wishes-wall{
+  max-width:820px;margin:44px auto 0;
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+}
+@media(max-width:700px){.wishes-wall{grid-template-columns:1fr;}}
+.wish-card{
+  background:#fff;
+  border:1px solid var(--gold-dim);
+  border-radius:14px;padding:20px;
+  box-shadow:0 8px 20px rgba(92,18,32,.05);
+  position:relative;
+}
+.wish-card .wname{font-family:var(--display);color:var(--maroon);font-size:1.1rem;}
+.wish-card .wmsg{font-weight:300;color:var(--maroon-soft);margin-top:6px;line-height:1.6;font-size:.95rem;}
+.wishes-empty{text-align:center;color:var(--maroon-soft);font-weight:300;grid-column:1/-1;}
+.wish-delete-btn{
+  position:absolute;top:10px;right:10px;
+  background:var(--maroon);color:#fff;border:none;
+  width:22px;height:22px;border-radius:50%;
+  font-size:.75rem;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* rsvp manage table */
+.rsvp-table{
+  width:100%;border-collapse:collapse;
+  background:#fff;border:1px solid var(--gold-dim);border-radius:14px;overflow:hidden;
+  font-size:.9rem;
+}
+.rsvp-table th,.rsvp-table td{
+  padding:12px 14px;text-align:left;border-bottom:1px solid var(--ivory-dim);
+}
+.rsvp-table th{
+  background:rgba(201,162,75,.1);color:var(--maroon);
+  font-family:var(--display);font-weight:600;font-size:1rem;
+}
+.rsvp-table tr:last-child td{border-bottom:none;}
+.rsvp-table td.rsvp-del{text-align:center;}
+.rsvp-delete-btn{
+  background:var(--maroon);color:#fff;border:none;
+  width:22px;height:22px;border-radius:50%;
+  font-size:.75rem;line-height:1;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.rsvp-summary{
+  text-align:center;color:var(--maroon-soft);font-weight:300;margin-bottom:14px;font-size:.95rem;
+}
+@media(max-width:700px){
+  .rsvp-table{font-size:.8rem;}
+  .rsvp-table th,.rsvp-table td{padding:8px 8px;}
+}
+
+/* footer */
+footer{
+  text-align:center;padding:60px 24px 90px;
+  background:#faf5ea;color:var(--maroon-soft);
+}
+footer .om-small{color:var(--saffron);font-size:1.4rem;margin-bottom:10px;}
+footer p{font-weight:300;font-size:.9rem;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+}
+
+/* ==========================================================================
+   LANGUAGE TOGGLE
+   ========================================================================== */
+#lang-toggle{
+  position:fixed;
+  top:16px;
+  right:16px;
+  z-index:250;
+  display:flex;
+  background:rgba(255,255,255,.95);
+  border:1px solid var(--gold);
+  border-radius:30px;
+  padding:4px;
+  gap:2px;
+  box-shadow:0 6px 18px rgba(92,18,32,.12);
+}
+.lang-btn{
+  border:none;
+  background:transparent;
+  color:var(--maroon-soft);
+  font-family:var(--body);
+  font-size:.8rem;
+  letter-spacing:.03em;
+  padding:7px 16px;
+  border-radius:24px;
+  transition:background .2s ease, color .2s ease;
+}
+.lang-btn.active{
+  background:linear-gradient(135deg,var(--gold-light),var(--gold));
+  color:var(--maroon-deep);
+  font-weight:500;
+}
+.lang-btn:not(.active):hover{background:rgba(201,162,75,.12);}
+
+</style>
 </head>
 <body>
 
-    <!-- Petals Container -->
-    <div class="petals" id="petals"></div>
+<canvas id="petal-canvas"></canvas>
 
-    <!-- Navigation -->
-    <nav>
-        <button onclick="toggleLanguage()" class="lang-btn" id="lang-btn">
-            <i class="fas fa-language"></i> <span id="lang-text">English / தமிழ்</span>
-        </button>
-    </nav>
+<div id="lang-toggle">
+  <button class="lang-btn active" data-lang="en">EN</button>
+  <button class="lang-btn" data-lang="ta">தமிழ்</button>
+</div>
 
-    <!-- Opening -->
-    <section id="opening">
-        <div style="position: relative; z-index: 5; text-align: center;">
-            <div class="gate">🛕</div>
-            <h1 id="opening-title" style="font-size: 3.8rem; color: var(--gold); margin: 15px 0;">KVS Family</h1>
-            <p id="opening-subtitle" style="font-size: 1.5rem; max-width: 500px; margin: 0 auto 40px;">
-                With divine blessings of Lord Ganesha, Shiva & Parvati, and Lord Venkateswara
-            </p>
-            <button onclick="openInvitation()" class="open-btn" id="open-btn">Open Sacred Invitation</button>
+<!-- ==========================================================================
+     ENTRANCE / TEMPLE DOORS
+     ========================================================================== -->
+<div id="entrance">
+  <div class="entrance-inner">
+    <div class="om-symbol">🕉️</div>
+    <div class="sacred-text" data-i18n="sacredText">Sri Ganeshaya Namaha</div>
+    <div class="royal-frame">
+      <span class="corner tl"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+      <span class="corner tr"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+      <span class="corner bl"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+      <span class="corner br"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+      <div class="royal-names" id="entrance-names">Priya <span class="amp">&amp;</span> Arjun</div>
+      <span class="royal-sub" data-i18n="entranceSub">forever begins here</span>
+    </div>
+    <div class="invite-sub" data-i18n="inviteSub">request the honour of your presence</div>
+    <div class="diya-row">
+      <span class="diya">🪔</span><span class="diya">🪔</span><span class="diya">🪔</span><span class="diya">🪔</span>
+    </div>
+    <button class="open-btn" id="open-invitation" data-i18n="openBtn">Open Invitation</button>
+  </div>
+  <div class="door left"></div>
+  <div class="door right"></div>
+</div>
+
+<!-- background music -->
+<audio id="bg-music" loop preload="none">
+  <!-- Optional: set CONFIG.musicUrl to your own hosted track to use this instead of the built-in ambient music -->
+  <source src="" type="audio/mpeg">
+</audio>
+<div id="music-controls">
+  <span class="music-icon" id="music-icon" aria-hidden="true">🎵</span>
+  <button id="music-toggle" title="Play / Pause music" aria-label="Play or pause music">▶️</button>
+  <button id="music-mute" title="Mute / Unmute" aria-label="Mute or unmute music">🔊</button>
+  <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.5" aria-label="Volume">
+</div>
+
+
+<!-- ==========================================================================
+     FAMILY INVITATION
+     ========================================================================== -->
+<section class="section maroon-bg" id="family">
+  <div class="wrap reveal">
+    <span class="eyebrow" data-i18n="familyEyebrow">✦ With Blessings From ✦</span>
+    <h2 class="family-name" data-i18n="familyName">The KVS Family</h2>
+    <p class="family-msg" data-i18n="familyMsg">With immense happiness and heartfelt joy, we warmly invite you and your family to celebrate one of the most cherished moments of our lives.</p>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     THE COUPLE
+     ========================================================================== -->
+<section class="section" id="couple">
+  <div class="wrap">
+    <div class="section-title reveal">
+      <span class="eyebrow" data-i18n="coupleEyebrow">✦ The Couple ✦</span>
+      <h2 data-i18n="coupleTitle">Two Hearts, One Journey</h2>
+    </div>
+    <div class="couple-grid">
+      <div class="reveal">
+        <div class="name-plate">
+          <span class="finial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 C12 7 15 8 15 12 C15 16 12 17 12 22 C12 17 9 16 9 12 C9 8 12 7 12 2Z"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg></span>
+          <span class="side-vine left"><svg viewBox="0 0 14 120" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 0 C7 20 2 25 7 40 C12 55 2 60 7 75 C12 90 2 95 7 110"/><circle cx="7" cy="40" r="2" fill="currentColor" stroke="none"/><circle cx="7" cy="75" r="2" fill="currentColor" stroke="none"/></svg></span>
+          <span class="side-vine right"><svg viewBox="0 0 14 120" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 0 C7 20 2 25 7 40 C12 55 2 60 7 75 C12 90 2 95 7 110"/><circle cx="7" cy="40" r="2" fill="currentColor" stroke="none"/><circle cx="7" cy="75" r="2" fill="currentColor" stroke="none"/></svg></span>
+          <div class="plate-name" id="bride-name">Priya</div>
+          <div class="plate-divider"><span></span><i></i><span></span></div>
+          <div class="plate-role" data-i18n="brideLabel">The Bride</div>
         </div>
-    </section>
-
-    <!-- Welcome -->
-    <section id="welcome" class="section">
-        <div class="content">
-            <div class="mantra" id="mantra">॥ श्री गणेशाय नमः ॥</div>
-            <p id="welcome-text" style="font-size: 1.55rem; text-align: center; max-width: 820px; margin: 0 auto;">
-                With the divine blessings of Lord Ganesha, Lord Shiva, Goddess Parvati, and Lord Venkateswara,<br>
-                The KVS Family heartily invites you and your family to celebrate the joyous wedding of our beloved children.
-            </p>
+      </div>
+      <div class="royal-frame reveal-scale">
+        <span class="corner tl"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+        <span class="corner tr"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+        <span class="corner bl"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+        <span class="corner br"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 36 C4 20 20 4 36 4"/><path d="M9 30 C13 26 13 20 9 16"/><circle cx="5.5" cy="34.5" r="2.4" fill="currentColor" stroke="none"/></svg></span>
+        <div class="royal-names" style="font-size:clamp(2.6rem,6vw,4.4rem);">P <span class="amp">&amp;</span> A</div>
+      </div>
+      <div class="reveal">
+        <div class="name-plate">
+          <span class="finial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 C12 7 15 8 15 12 C15 16 12 17 12 22 C12 17 9 16 9 12 C9 8 12 7 12 2Z"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg></span>
+          <span class="side-vine left"><svg viewBox="0 0 14 120" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 0 C7 20 2 25 7 40 C12 55 2 60 7 75 C12 90 2 95 7 110"/><circle cx="7" cy="40" r="2" fill="currentColor" stroke="none"/><circle cx="7" cy="75" r="2" fill="currentColor" stroke="none"/></svg></span>
+          <span class="side-vine right"><svg viewBox="0 0 14 120" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 0 C7 20 2 25 7 40 C12 55 2 60 7 75 C12 90 2 95 7 110"/><circle cx="7" cy="40" r="2" fill="currentColor" stroke="none"/><circle cx="7" cy="75" r="2" fill="currentColor" stroke="none"/></svg></span>
+          <div class="plate-name" id="groom-name">Arjun</div>
+          <div class="plate-divider"><span></span><i></i><span></span></div>
+          <div class="plate-role" data-i18n="groomLabel">The Groom</div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Couple -->
-    <section id="couple" class="section">
-        <div class="content" style="display: flex; justify-content: center; gap: 100px; flex-wrap: wrap;">
-            <!-- Groom -->
-            <div class="couple-card">
-                <img src="https://picsum.photos/id/64/600/600" alt="Groom" class="couple-img">
-                <div class="name" id="groom-name">Groom Name</div>
-                <p id="groom-desc" style="color: #ddd; font-size: 1.1rem;">Son of Shri & Smt. KVS</p>
-            </div>
-            <!-- Bride -->
-            <div class="couple-card">
-                <img src="https://picsum.photos/id/1011/600/600" alt="Bride" class="couple-img">
-                <div class="name" id="bride-name">Bride Name</div>
-                <p id="bride-desc" style="color: #ddd; font-size: 1.1rem;">Daughter of Shri & Smt. Family</p>
-            </div>
+<!-- ==========================================================================
+     OUR FOREVER BEGINS / COUNTDOWN
+     ========================================================================== -->
+<section class="section maroon-bg" id="forever">
+  <div class="wrap">
+    <div class="gopuram-divider">
+      <svg viewBox="0 0 140 60" fill="none"><path d="M10 55 L10 30 Q70 -10 130 30 L130 55" stroke="#c9a24b" stroke-width="2"/><circle cx="70" cy="16" r="4" fill="#c9a24b"/></svg>
+    </div>
+    <p class="quote-block reveal" data-i18n="foreverQuote">"Two souls, one journey — bound not just by love, but by faith, family, and the promise of forever."</p>
+    <div class="countdown reveal" id="countdown">
+      <div class="unit"><div class="num" id="cd-days">00</div><div class="lbl" data-i18n="lblDays">Days</div></div>
+      <div class="unit"><div class="num" id="cd-hours">00</div><div class="lbl" data-i18n="lblHours">Hours</div></div>
+      <div class="unit"><div class="num" id="cd-mins">00</div><div class="lbl" data-i18n="lblMins">Minutes</div></div>
+      <div class="unit"><div class="num" id="cd-secs">00</div><div class="lbl" data-i18n="lblSecs">Seconds</div></div>
+    </div>
+    <div class="cal-buttons reveal">
+      <button class="cal-btn" id="google-cal-btn" data-i18n="gcalBtn">＋ Add to Google Calendar</button>
+      <button class="cal-btn" id="ics-btn" data-i18n="icsBtn">⬇ Download Calendar (.ics)</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     CELEBRATION DETAILS
+     ========================================================================== -->
+<section class="section" id="details">
+  <div class="wrap">
+    <div class="section-title reveal">
+      <span class="eyebrow" data-i18n="detailsEyebrow">✦ Celebration Details ✦</span>
+      <h2 data-i18n="detailsTitle">Join Us As We Celebrate</h2>
+    </div>
+    <div class="details-grid">
+      <div class="detail-card corner-frame reveal">
+        <h3 data-i18n="receptionTitle">🌸 Reception</h3>
+        <div class="row"><b data-i18n="lblDate">Date</b><span id="rec-date" data-i18n="recDate">Saturday, 12 December 2026</span></div>
+        <div class="row"><b data-i18n="lblTime">Time</b><span data-i18n="recTime">7:00 PM onwards</span></div>
+        <div class="row"><b data-i18n="lblVenue">Venue</b><span data-i18n="venueName">Sri Kalyana Mahal</span></div>
+        <div class="row"><b data-i18n="lblAddress">Address</b><span data-i18n="venueAddressShort">12 Temple Street, Mylapore, Chennai, Tamil Nadu</span></div>
+      </div>
+      <div class="detail-card corner-frame reveal">
+        <h3 data-i18n="ceremonyTitle">💍 Wedding Ceremony</h3>
+        <div class="row"><b data-i18n="lblDate">Date</b><span id="wed-date" data-i18n="wedDate">Sunday, 13 December 2026</span></div>
+        <div class="row"><b data-i18n="lblMuhurtham">Muhurtham</b><span data-i18n="muhurthamTime">6:42 AM – 7:18 AM</span></div>
+        <div class="row"><b data-i18n="lblVenue">Venue</b><span data-i18n="venueName2">Sri Kalyana Mahal</span></div>
+        <div class="row"><b data-i18n="lblAddress">Address</b><span data-i18n="venueAddressShort2">12 Temple Street, Mylapore, Chennai, Tamil Nadu</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     WEDDING STORY
+     ========================================================================== -->
+<section class="section maroon-bg" id="story">
+  <div class="wrap">
+    <div class="section-title reveal">
+      <span class="eyebrow" data-i18n="storyEyebrow">✦ Our Story ✦</span>
+      <h2 data-i18n="storyTitle">A New Chapter Begins</h2>
+    </div>
+    <p class="story-text reveal" style="color:var(--maroon-soft)" data-i18n="storyText">From two families and two journeys, a single path now begins. We are endlessly grateful to everyone who has shaped our story with love, laughter, and support along the way. As we take this sacred step together, we invite you — our cherished family and friends — to stand beside us, share in our joy, and bless us as we begin this beautiful new chapter of life.</p>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     CELEBRATION TIMELINE
+     ========================================================================== -->
+<section class="section" id="timeline">
+  <div class="wrap">
+    <div class="section-title reveal">
+      <span class="eyebrow" data-i18n="timelineEyebrow">✦ Celebration Timeline ✦</span>
+      <h2 data-i18n="timelineTitle">Every Sacred Moment</h2>
+    </div>
+
+    <div class="timeline-day">
+      <div class="timeline-day-title reveal" data-i18n="day1Title">🌿 Day One — Pre-Wedding Celebrations</div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <span class="dot"></span>
+          <span class="icon">🪔</span><h4 data-i18n="ev1h">Ganapathi Pooja</h4>
+          <p data-i18n="ev1p">A sacred beginning invoking Lord Ganesha's blessings to remove all obstacles from the path ahead.</p>
         </div>
-    </section>
-
-    <!-- Countdown -->
-    <section id="countdown" class="section">
-        <div class="content">
-            <h2 class="heading" id="countdown-title">Countdown to Muhurtham</h2>
-            <div class="timer" id="timer"></div>
+        <div class="tl-item reveal">
+          <span class="dot"></span>
+          <span class="icon">🌼</span><h4 data-i18n="ev2h">Nalangu</h4>
+          <p data-i18n="ev2p">A joyful, playful ritual filled with music, teasing games, and laughter between the couple and their families.</p>
         </div>
-    </section>
-
-    <!-- Message -->
-    <section class="section" style="background: #2C003E;">
-        <div class="content">
-            <h2 class="heading" id="message-title">Heartfelt Invitation</h2>
-            <p id="message-text" style="text-align: center; font-size: 1.45rem; max-width: 780px; margin: 0 auto;">
-                We are delighted to invite you to witness and bless the sacred union of two souls. 
-                Your presence will add divine grace to our celebration.
-            </p>
+        <div class="tl-item reveal">
+          <span class="dot"></span>
+          <span class="icon">🎉</span><h4 data-i18n="ev3h">Reception &amp; Celebrations</h4>
+          <p data-i18n="ev3p">An evening of festivity, feasting, and heartfelt wishes as loved ones gather to celebrate the couple.</p>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Closing -->
-    <footer class="section">
-        <div class="content">
-            <h2 class="heading" id="closing-title">With Love & Gratitude</h2>
-            <p id="closing-text" style="font-size: 1.6rem; text-align: center; max-width: 700px; margin: 30px auto;">
-                J & J along with The KVS Family<br>
-                humbly invite you to bless our new journey with your gracious presence.
-            </p>
+    <div class="timeline-day">
+      <div class="timeline-day-title reveal" data-i18n="day2Title">💍 Day Two — Wedding Ceremony</div>
+      <div class="timeline">
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">🛁</span><h4 data-i18n="ev4h">Mangala Snanam</h4><p data-i18n="ev4p">The sacred ceremonial bath symbolizing purification before the rituals begin.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">🚶</span><h4 data-i18n="ev5h">Kashi Yatra</h4><p data-i18n="ev5p">A symbolic journey where the groom pretends to renounce worldly life, gently persuaded to return by the bride's family.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">🌸</span><h4 data-i18n="ev6h">Maalai Maatral</h4><p data-i18n="ev6p">The joyful exchange of garlands between the bride and groom, marking their acceptance of one another.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">🤝</span><h4 data-i18n="ev7h">Kanyadhanam</h4><p data-i18n="ev7p">The bride's father ceremonially gives her hand in marriage, entrusting her to her partner with blessings.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">💛</span><h4 data-i18n="ev8h">Mangalya Dharanam</h4><p data-i18n="ev8p">The groom ties the sacred thali around the bride's neck — the defining moment of the wedding.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">👣</span><h4 data-i18n="ev9h">Sapthapathi</h4><p data-i18n="ev9p">Seven sacred steps taken together around the holy fire, each one a vow for their shared life ahead.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">🙏</span><h4 data-i18n="ev10h">Ashirvadam</h4><p data-i18n="ev10p">Elders bless the newlywed couple, showering them with blessings for a prosperous life together.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">🌺</span><h4 data-i18n="ev11h">Nagavalli Subhamuhurtham</h4><p data-i18n="ev11p">An auspicious ritual marking the formal completion of the sacred wedding rites.</p></div>
+        <div class="tl-item reveal"><span class="dot"></span><span class="icon">🍽️</span><h4 data-i18n="ev12h">Traditional Wedding Feast</h4><p data-i18n="ev12p">A grand banquet served on banana leaves, celebrating the union with family and friends.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="comment-form" style="max-width: 620px; margin: 40px auto; background: rgba(255,255,255,0.08); padding: 30px; border-radius: 20px;">
-                <h3 id="comment-title" style="text-align: center; margin-bottom: 20px; color: var(--gold);">Share Your Blessings</h3>
-                <input type="text" id="cname" placeholder="Your Name">
-                <textarea id="cmsg" rows="4" placeholder="Your wishes for the couple..."></textarea>
-                <button onclick="postComment()" style="width: 100%; padding: 16px; background: var(--gold); color: #2C003E; border: none; font-size: 1.2rem; cursor: pointer;" id="comment-btn">Send Blessings</button>
-            </div>
-
-            <div id="comments-display" style="margin-top: 50px; max-width: 700px; margin-left: auto; margin-right: auto;"></div>
+<!-- ==========================================================================
+     VENUE & TRAVEL GUIDE
+     ========================================================================== -->
+<section class="section maroon-bg" id="venue">
+  <div class="wrap">
+    <div class="section-title reveal">
+      <span class="eyebrow" data-i18n="venueEyebrow">✦ Venue &amp; Travel ✦</span>
+      <h2 data-i18n="venueTitle">Finding Your Way To Us</h2>
+    </div>
+    <div class="venue-grid">
+      <div class="reveal">
+        <div class="map-frame">
+          <iframe loading="lazy" id="venue-map"
+            src="https://www.google.com/maps?q=Sri+Kalyana+Mahal+Mylapore+Chennai&output=embed"
+            allowfullscreen></iframe>
         </div>
-    </footer>
+        <a class="direction-btn" id="directions-btn" href="https://www.google.com/maps/dir/?api=1&destination=Sri+Kalyana+Mahal+Mylapore+Chennai" target="_blank" rel="noopener" data-i18n="directionsBtn">Get Directions →</a>
+      </div>
+      <div class="reveal">
+        <ul class="travel-list">
+          <li><b data-i18n="travelAddressLbl">Address:</b> <span data-i18n="travelAddressVal">12 Temple Street, Mylapore, Chennai, Tamil Nadu 600004</span></li>
+          <li><b data-i18n="travelLandmarkLbl">Landmark:</b> <span data-i18n="travelLandmarkVal">Opposite Kapaleeshwarar Temple</span></li>
+          <li><b data-i18n="travelParkingLbl">Parking:</b> <span data-i18n="travelParkingVal">Complimentary valet parking available on-site</span></li>
+          <li><b data-i18n="travelCarLbl">By Car:</b> <span data-i18n="travelCarVal">20 min from Chennai city centre via Kutchery Road</span></li>
+          <li><b data-i18n="travelTrainLbl">By Train:</b> <span data-i18n="travelTrainVal">Mylapore MRTS Station — 5 min walk</span></li>
+          <li><b data-i18n="travelBusLbl">By Bus:</b> <span data-i18n="travelBusVal">Routes 5, 18, 27B stop directly outside the venue</span></li>
+          <li><b data-i18n="travelFlightLbl">By Flight:</b> <span data-i18n="travelFlightVal">Chennai International Airport — 45 min drive</span></li>
+          <li><b data-i18n="travelHotelsLbl">Nearby Hotels:</b> <span data-i18n="travelHotelsVal">Taj Fisherman's Cove, Radisson Blu Egmore, ITC Grand Chola</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Translations
-        const translations = {
-            en: {
-                openingTitle: "KVS Family",
-                openingSubtitle: "With divine blessings of Lord Ganesha, Shiva & Parvati, and Lord Venkateswara",
-                openBtn: "Open Sacred Invitation",
-                mantra: "॥ श्री गणेशाय नमः ॥",
-                welcomeText: "With the divine blessings of Lord Ganesha, Lord Shiva, Goddess Parvati, and Lord Venkateswara,<br>The KVS Family heartily invites you and your family to celebrate the joyous wedding of our beloved children.",
-                groomName: "Groom Name",
-                groomDesc: "Son of Shri & Smt. KVS",
-                brideName: "Bride Name",
-                brideDesc: "Daughter of Shri & Smt. Family",
-                countdownTitle: "Countdown to Muhurtham",
-                messageTitle: "Heartfelt Invitation",
-                messageText: "We are delighted to invite you to witness and bless the sacred union of two souls. Your presence will add divine grace to our celebration.",
-                closingTitle: "With Love & Gratitude",
-                closingText: "J & J along with The KVS Family<br>humbly invite you to bless our new journey with your gracious presence.",
-                commentTitle: "Share Your Blessings",
-                commentBtn: "Send Blessings",
-                langText: "English / தமிழ்"
-            },
-            ta: {
-                openingTitle: "கே.வி.எஸ். குடும்பம்",
-                openingSubtitle: "லார்ட் கணேசா, சிவன் & பார்வதி, மற்றும் லார்ட் வெங்கடேஸ்வரரின் தெய்வீக ஆசிகளுடன்",
-                openBtn: "புனித அழைப்பைத் திறக்கவும்",
-                mantra: "॥ ஸ்ரீ கணேசாய நமஹ் ॥",
-                welcomeText: "லார்ட் கணேசா, லார்ட் சிவா, தேவி பார்வதி மற்றும் லார்ட் வெங்கடேஸ்வரரின் தெய்வீக ஆசிகளுடன்,<br>கே.வி.எஸ். குடும்பம் எங்கள் அன்புக்குரிய பிள்ளைகளின் மகிழ்ச்சியான திருமணத்தை கொண்டாட உங்களையும் உங்கள் குடும்பத்தையும் அன்புடன் அழைக்கிறது.",
-                groomName: "மணமகன் பெயர்",
-                groomDesc: "திரு. & திருமதி. கே.வி.எஸ். மகன்",
-                brideName: "மணமகள் பெயர்",
-                brideDesc: "திரு. & திருமதி. குடும்பத்தின் மகள்",
-                countdownTitle: "முகூர்த்தத்திற்கான எண்ணிக்கை",
-                messageTitle: "இதயப்பூர்வ அழைப்பு",
-                messageText: "இரு ஆத்மாக்களின் புனித இணைப்பை காணவும் ஆசீர்வதிக்கவும் உங்களை அழைக்கிறோம். உங்கள் வருகை எங்கள் விழாவுக்கு தெய்வீக அருளைச் சேர்க்கும்.",
-                closingTitle: "அன்பு மற்றும் நன்றியுடன்",
-                closingText: "ஜே & ஜே மற்றும் கே.வி.எஸ். குடும்பத்தினர்<br>எங்கள் புதிய பயணத்தை உங்கள் அருளுடன் ஆசீர்வதிக்குமாறு பணிவுடன் அழைக்கிறோம்.",
-                commentTitle: "உங்கள் ஆசிகளைப் பகிர்ந்து கொள்ளுங்கள்",
-                commentBtn: "ஆசிகளை அனுப்பவும்",
-                langText: "தமிழ் / English"
-            }
-        };
+<!-- ==========================================================================
+     RSVP
+     ========================================================================== -->
+<section class="section" id="rsvp">
+  <div class="wrap">
+    <div class="section-title reveal">
+      <span class="eyebrow" data-i18n="rsvpEyebrow">✦ RSVP ✦</span>
+      <h2 data-i18n="rsvpTitle">Will You Join Us?</h2>
+    </div>
+    <form class="form-card reveal" id="rsvp-form">
+      <div class="field">
+        <label for="rsvp-name" data-i18n="rsvpNameLbl">Guest Name</label>
+        <input type="text" id="rsvp-name" required>
+      </div>
+      <div class="field">
+        <label for="rsvp-phone" data-i18n="rsvpPhoneLbl">Phone Number</label>
+        <input type="tel" id="rsvp-phone" required>
+      </div>
+      <div class="field">
+        <label for="rsvp-guests" data-i18n="rsvpGuestsLbl">Number of Guests</label>
+        <input type="number" id="rsvp-guests" min="1" max="10" value="1" required>
+      </div>
+      <div class="field">
+        <label for="rsvp-attend" data-i18n="rsvpAttendLbl">Attendance Confirmation</label>
+        <select id="rsvp-attend" required>
+          <option value="Joyfully Attending" data-i18n="rsvpYes">Joyfully Attending</option>
+          <option value="Regretfully Declining" data-i18n="rsvpNo">Regretfully Declining</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn" id="rsvp-submit" data-i18n="rsvpSubmit">Send RSVP</button>
+      <div class="form-msg" id="rsvp-msg"></div>
+    </form>
+    <div id="rsvp-list-wrap" style="max-width:820px;margin:32px auto 0;display:none;">
+      <div id="rsvp-list"></div>
+    </div>
+    <div style="text-align:center;margin-top:24px;">
+      <button id="manage-rsvp-btn" type="button" style="background:none;border:none;color:var(--gold-dim);font-size:.75rem;letter-spacing:.05em;text-decoration:underline;cursor:pointer;">🔒 Manage RSVPs</button>
+    </div>
+  </div>
+</section>
 
-        let currentLang = 'en';
+<!-- ==========================================================================
+     SPECIAL INVITATION
+     ========================================================================== -->
+<section class="section maroon-bg" id="special">
+  <div class="wrap">
+    <div class="gopuram-divider">
+      <svg viewBox="0 0 140 60" fill="none"><path d="M10 55 L10 30 Q70 -10 130 30 L130 55" stroke="#c9a24b" stroke-width="2"/><circle cx="70" cy="16" r="4" fill="#c9a24b"/></svg>
+    </div>
+    <p class="special-invite reveal" data-i18n="specialInvite">"With love, gratitude, and joyful hearts, JJ warmly invites you and your family to celebrate our wedding and honour us with your presence and blessings."</p>
+  </div>
+</section>
 
-        function updateLanguage(lang) {
-            currentLang = lang;
-            const t = translations[lang];
+<!-- ==========================================================================
+     GUEST BLESSINGS / WISHES WALL
+     ========================================================================== -->
+<section class="section" id="wishes">
+  <div class="wrap">
+    <div class="section-title reveal">
+      <span class="eyebrow" data-i18n="wishesEyebrow">✦ Guest Blessings ✦</span>
+      <h2 data-i18n="wishesTitle">Leave Us Your Blessings</h2>
+      <p data-i18n="wishesDesc">Your message will appear on this wall for everyone to see — a living guestbook of love.</p>
+    </div>
+    <form class="form-card reveal" id="wish-form">
+      <div class="field">
+        <label for="wish-name" data-i18n="wishNameLbl">Name</label>
+        <input type="text" id="wish-name" required>
+      </div>
+      <div class="field">
+        <label for="wish-message" data-i18n="wishMsgLbl">Message</label>
+        <textarea id="wish-message" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="wish-submit" data-i18n="wishSubmit">Leave a Blessing</button>
+      <div class="form-msg" id="wish-msg"></div>
+    </form>
+    <div class="wishes-wall" id="wishes-wall">
+      <p class="wishes-empty" data-i18n="wishesLoading">Loading blessings…</p>
+    </div>
+    <div style="text-align:center;margin-top:24px;">
+      <button id="manage-wishes-btn" type="button" style="background:none;border:none;color:var(--gold-dim);font-size:.75rem;letter-spacing:.05em;text-decoration:underline;cursor:pointer;">🔒 Manage blessings</button>
+    </div>
+  </div>
+</section>
 
-            document.getElementById('opening-title').textContent = t.openingTitle;
-            document.getElementById('opening-subtitle').innerHTML = t.openingSubtitle;
-            document.getElementById('open-btn').textContent = t.openBtn;
-            document.getElementById('mantra').textContent = t.mantra;
-            document.getElementById('welcome-text').innerHTML = t.welcomeText;
-            document.getElementById('groom-name').textContent = t.groomName;
-            document.getElementById('groom-desc').textContent = t.groomDesc;
-            document.getElementById('bride-name').textContent = t.brideName;
-            document.getElementById('bride-desc').textContent = t.brideDesc;
-            document.getElementById('countdown-title').textContent = t.countdownTitle;
-            document.getElementById('message-title').textContent = t.messageTitle;
-            document.getElementById('message-text').textContent = t.messageText;
-            document.getElementById('closing-title').textContent = t.closingTitle;
-            document.getElementById('closing-text').innerHTML = t.closingText;
-            document.getElementById('comment-title').textContent = t.commentTitle;
-            document.getElementById('comment-btn').textContent = t.commentBtn;
-            document.getElementById('lang-text').textContent = t.langText;
+<footer>
+  <div class="om-small">🕉️</div>
+  <p data-i18n="footerText">With love &amp; blessings — Priya &amp; Arjun · The KVS Family</p>
+</footer>
 
-            // Update placeholders
-            document.getElementById('cname').placeholder = lang === 'en' ? "Your Name" : "உங்கள் பெயர்";
-            document.getElementById('cmsg').placeholder = lang === 'en' ? "Your wishes for the couple..." : "தம்பதியருக்கு உங்கள் வாழ்த்துக்கள்...";
+<script>
+/* ==========================================================================
+   ============================  CONFIG  ====================================
+   Edit everything in this object to personalise the invitation.
+   Nothing elsewhere in the script needs to change.
+   ========================================================================== */
+const CONFIG = {
+  bride: "Priya",
+  groom: "Arjun",
+  brideTamil: "பிரியா",
+  groomTamil: "அர்ஜுன்",
+  familyName: "The KVS Family",
+
+  // Wedding ceremony date/time drives the countdown + calendar links.
+  // Format: "YYYY-MM-DDTHH:MM:SS" (local time)
+  ceremony: {
+    title: "Priya & Arjun's Wedding Ceremony",
+    start: "2026-12-13T06:42:00",
+    end:   "2026-12-13T10:00:00",
+    location: "Sri Kalyana Mahal, 12 Temple Street, Mylapore, Chennai, Tamil Nadu 600004",
+    description: "Wedding ceremony (Muhurtham 6:42 AM – 7:18 AM) followed by traditional rituals."
+  },
+
+  mapsQuery: "Sri Kalyana Mahal Mylapore Chennai",
+
+  // Background music: paste a hosted mp3 URL below (leave blank to hide silently until you add one)
+  musicUrl: "",
+
+  // Passcode to enter "Manage blessings" mode on the Guest Blessings wall,
+  // which reveals a delete (✕) button on each message. Change this to
+  // something private before sharing the site with guests.
+  adminPasscode: "kvswedding2026"
+};
+
+/* ==========================================================================
+   TRANSLATIONS — English / Tamil
+   Add more languages by adding another top-level key (e.g. "hi": {...})
+   and a matching button in #lang-toggle.
+   ========================================================================== */
+const TRANSLATIONS = {
+  en: {
+    sacredText: "Sri Ganeshaya Namaha",
+    entranceSub: "forever begins here",
+    inviteSub: "request the honour of your presence",
+    openBtn: "Open Invitation",
+
+    familyEyebrow: "✦ With Blessings From ✦",
+    familyName: "The KVS Family",
+    familyMsg: "With immense happiness and heartfelt joy, we warmly invite you and your family to celebrate one of the most cherished moments of our lives.",
+
+    coupleEyebrow: "✦ The Couple ✦",
+    coupleTitle: "Two Hearts, One Journey",
+    brideLabel: "The Bride",
+    groomLabel: "The Groom",
+
+    foreverQuote: "\u201CTwo souls, one journey — bound not just by love, but by faith, family, and the promise of forever.\u201D",
+    lblDays: "Days", lblHours: "Hours", lblMins: "Minutes", lblSecs: "Seconds",
+    gcalBtn: "＋ Add to Google Calendar",
+    icsBtn: "⬇ Download Calendar (.ics)",
+
+    detailsEyebrow: "✦ Celebration Details ✦",
+    detailsTitle: "Join Us As We Celebrate",
+    receptionTitle: "🌸 Reception",
+    ceremonyTitle: "💍 Wedding Ceremony",
+    lblDate: "Date", lblTime: "Time", lblVenue: "Venue", lblAddress: "Address", lblMuhurtham: "Muhurtham",
+    recDate: "Saturday, 12 December 2026",
+    recTime: "7:00 PM onwards",
+    wedDate: "Sunday, 13 December 2026",
+    muhurthamTime: "6:42 AM – 7:18 AM",
+    venueName: "Sri Kalyana Mahal",
+    venueName2: "Sri Kalyana Mahal",
+    venueAddressShort: "12 Temple Street, Mylapore, Chennai, Tamil Nadu",
+    venueAddressShort2: "12 Temple Street, Mylapore, Chennai, Tamil Nadu",
+
+    storyEyebrow: "✦ Our Story ✦",
+    storyTitle: "A New Chapter Begins",
+    storyText: "From two families and two journeys, a single path now begins. We are endlessly grateful to everyone who has shaped our story with love, laughter, and support along the way. As we take this sacred step together, we invite you — our cherished family and friends — to stand beside us, share in our joy, and bless us as we begin this beautiful new chapter of life.",
+
+    timelineEyebrow: "✦ Celebration Timeline ✦",
+    timelineTitle: "Every Sacred Moment",
+    day1Title: "🌿 Day One — Pre-Wedding Celebrations",
+    day2Title: "💍 Day Two — Wedding Ceremony",
+    ev1h:"Ganapathi Pooja", ev1p:"A sacred beginning invoking Lord Ganesha's blessings to remove all obstacles from the path ahead.",
+    ev2h:"Nalangu", ev2p:"A joyful, playful ritual filled with music, teasing games, and laughter between the couple and their families.",
+    ev3h:"Reception & Celebrations", ev3p:"An evening of festivity, feasting, and heartfelt wishes as loved ones gather to celebrate the couple.",
+    ev4h:"Mangala Snanam", ev4p:"The sacred ceremonial bath symbolizing purification before the rituals begin.",
+    ev5h:"Kashi Yatra", ev5p:"A symbolic journey where the groom pretends to renounce worldly life, gently persuaded to return by the bride's family.",
+    ev6h:"Maalai Maatral", ev6p:"The joyful exchange of garlands between the bride and groom, marking their acceptance of one another.",
+    ev7h:"Kanyadhanam", ev7p:"The bride's father ceremonially gives her hand in marriage, entrusting her to her partner with blessings.",
+    ev8h:"Mangalya Dharanam", ev8p:"The groom ties the sacred thali around the bride's neck — the defining moment of the wedding.",
+    ev9h:"Sapthapathi", ev9p:"Seven sacred steps taken together around the holy fire, each one a vow for their shared life ahead.",
+    ev10h:"Ashirvadam", ev10p:"Elders bless the newlywed couple, showering them with blessings for a prosperous life together.",
+    ev11h:"Nagavalli Subhamuhurtham", ev11p:"An auspicious ritual marking the formal completion of the sacred wedding rites.",
+    ev12h:"Traditional Wedding Feast", ev12p:"A grand banquet served on banana leaves, celebrating the union with family and friends.",
+
+    venueEyebrow: "✦ Venue & Travel ✦",
+    venueTitle: "Finding Your Way To Us",
+    directionsBtn: "Get Directions →",
+    travelAddressLbl: "Address:", travelAddressVal: "12 Temple Street, Mylapore, Chennai, Tamil Nadu 600004",
+    travelLandmarkLbl: "Landmark:", travelLandmarkVal: "Opposite Kapaleeshwarar Temple",
+    travelParkingLbl: "Parking:", travelParkingVal: "Complimentary valet parking available on-site",
+    travelCarLbl: "By Car:", travelCarVal: "20 min from Chennai city centre via Kutchery Road",
+    travelTrainLbl: "By Train:", travelTrainVal: "Mylapore MRTS Station — 5 min walk",
+    travelBusLbl: "By Bus:", travelBusVal: "Routes 5, 18, 27B stop directly outside the venue",
+    travelFlightLbl: "By Flight:", travelFlightVal: "Chennai International Airport — 45 min drive",
+    travelHotelsLbl: "Nearby Hotels:", travelHotelsVal: "Taj Fisherman's Cove, Radisson Blu Egmore, ITC Grand Chola",
+
+    rsvpEyebrow: "✦ RSVP ✦",
+    rsvpTitle: "Will You Join Us?",
+    rsvpNameLbl: "Guest Name",
+    rsvpPhoneLbl: "Phone Number",
+    rsvpGuestsLbl: "Number of Guests",
+    rsvpAttendLbl: "Attendance Confirmation",
+    rsvpYes: "Joyfully Attending",
+    rsvpNo: "Regretfully Declining",
+    rsvpSubmit: "Send RSVP",
+    rsvpSuccess: "Thank you! Your RSVP has been received. 🙏",
+    rsvpError: "We couldn't save your RSVP right now — please try again.",
+
+    specialInvite: "\u201CWith love, gratitude, and joyful hearts, JJ warmly invites you and your family to celebrate our wedding and honour us with your presence and blessings.\u201D",
+
+    wishesEyebrow: "✦ Guest Blessings ✦",
+    wishesTitle: "Leave Us Your Blessings",
+    wishesDesc: "Your message will appear on this wall for everyone to see — a living guestbook of love.",
+    wishNameLbl: "Name",
+    wishMsgLbl: "Message",
+    wishSubmit: "Leave a Blessing",
+    wishSuccess: "Your blessing has been added. Thank you! 🌸",
+    wishError: "We couldn't post your blessing right now — please try again.",
+    wishesLoading: "Loading blessings…",
+    wishesEmpty: "Be the first to leave a blessing for the couple. 💛",
+
+    footerText: "With love & blessings — Priya & Arjun · The KVS Family"
+  },
+  ta: {
+    sacredText: "ஸ்ரீ கணேசாய நமஹ",
+    entranceSub: "நித்தியம் இங்கே தொடங்குகிறது",
+    inviteSub: "உங்கள் வருகையை அன்புடன் வேண்டுகிறோம்",
+    openBtn: "அழைப்பிதழைத் திற",
+
+    familyEyebrow: "✦ ஆசீர்வாதங்களுடன் ✦",
+    familyName: "KVS குடும்பம்",
+    familyMsg: "மிகுந்த மகிழ்ச்சியுடனும் இதயம் நிறைந்த சந்தோஷத்துடனும், எங்கள் வாழ்வின் மிகவும் சிறப்பான தருணங்களில் ஒன்றைக் கொண்டாட உங்களையும் உங்கள் குடும்பத்தையும் அன்புடன் அழைக்கிறோம்.",
+
+    coupleEyebrow: "✦ தம்பதியினர் ✦",
+    coupleTitle: "இரு இதயங்கள், ஒரே பயணம்",
+    brideLabel: "மணமகள்",
+    groomLabel: "மணமகன்",
+
+    foreverQuote: "“இரு உள்ளங்கள், ஒரே பயணம் — அன்பினால் மட்டுமல்ல, நம்பிக்கை, குடும்பம், என்றென்றைக்கும் என்ற வாக்குறுதியாலும் பிணைக்கப்பட்டவை.”",
+    lblDays: "நாட்கள்", lblHours: "மணி நேரம்", lblMins: "நிமிடங்கள்", lblSecs: "வினாடிகள்",
+    gcalBtn: "＋ கூகிள் காலெண்டரில் சேர்",
+    icsBtn: "⬇ காலெண்டரைப் பதிவிறக்கு (.ics)",
+
+    detailsEyebrow: "✦ விழா விவரங்கள் ✦",
+    detailsTitle: "எங்கள் கொண்டாட்டத்தில் இணையுங்கள்",
+    receptionTitle: "🌸 வரவேற்பு விழா",
+    ceremonyTitle: "💍 திருமண நிகழ்ச்சி",
+    lblDate: "தேதி", lblTime: "நேரம்", lblVenue: "இடம்", lblAddress: "முகவரி", lblMuhurtham: "முகூர்த்தம்",
+    recDate: "சனிக்கிழமை, 12 டிசம்பர் 2026",
+    recTime: "மாலை 7:00 மணி முதல்",
+    wedDate: "ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026",
+    muhurthamTime: "காலை 6:42 – 7:18",
+    venueName: "ஸ்ரீ கல்யாண மஹால்",
+    venueName2: "ஸ்ரீ கல்யாண மஹால்",
+    venueAddressShort: "12 கோவில் தெரு, மயிலாப்பூர், சென்னை, தமிழ்நாடு",
+    venueAddressShort2: "12 கோவில் தெரு, மயிலாப்பூர், சென்னை, தமிழ்நாடு",
+
+    storyEyebrow: "✦ எங்கள் கதை ✦",
+    storyTitle: "புதிய அத்தியாயம் தொடங்குகிறது",
+    storyText: "இரு குடும்பங்கள், இரு பயணங்கள் — இப்போது ஒரே பாதையாகத் தொடங்குகிறது. அன்பு, சிரிப்பு, ஆதரவால் எங்கள் கதையை வடிவமைத்த அனைவருக்கும் எங்கள் நன்றி எல்லையற்றது. இந்தப் புனிதமான அடியை ஒன்றாக எடுத்து வைக்கும் இந்நேரத்தில், எங்கள் அன்பான குடும்பத்தினரையும் நண்பர்களையும் — எங்களுடன் நின்று, எங்கள் மகிழ்ச்சியில் பங்கேற்று, இந்த புதிய வாழ்க்கை அத்தியாயத்தை தொடங்கும் எங்களை ஆசீர்வதிக்குமாறு அன்புடன் அழைக்கிறோம்.",
+
+    timelineEyebrow: "✦ விழா நிகழ்ச்சி நிரல் ✦",
+    timelineTitle: "ஒவ்வொரு புனிதத் தருணமும்",
+    day1Title: "🌿 முதல் நாள் — திருமணத்திற்கு முந்தைய கொண்டாட்டங்கள்",
+    day2Title: "💍 இரண்டாம் நாள் — திருமண நிகழ்ச்சி",
+    ev1h:"கணபதி பூஜை", ev1p:"விநாயகரின் ஆசியைப் பெற்று, முன்னிலையிலுள்ள அனைத்து தடைகளையும் நீக்கும் புனிதமான தொடக்கம்.",
+    ev2h:"நலங்கு", ev2p:"இசை, குறும்பான விளையாட்டுகள், சிரிப்பு நிறைந்த மகிழ்ச்சியான சடங்கு — தம்பதியினருக்கும் குடும்பத்தினருக்கும் இடையே.",
+    ev3h:"வரவேற்பு விழா", ev3p:"தம்பதியினரைக் கொண்டாட அன்பானவர்கள் ஒன்றுகூடும், விருந்தும் ஆசிகளும் நிறைந்த மாலைப் பொழுது.",
+    ev4h:"மங்கள ஸ்நானம்", ev4p:"சடங்குகள் தொடங்கும் முன் தூய்மையைக் குறிக்கும் புனிதமான சடங்கு நீராடல்.",
+    ev5h:"காசி யாத்திரை", ev5p:"மணமகன் உலக வாழ்க்கையைத் துறப்பது போல் நடிக்கும் குறியீட்டுப் பயணம், மணமகள் குடும்பத்தினரால் அன்புடன் திரும்ப அழைக்கப்படுகிறார்.",
+    ev6h:"மாலை மாற்றல்", ev6p:"மணமகளும் மணமகனும் ஒருவரையொருவர் ஏற்றுக்கொள்வதைக் குறிக்கும் மகிழ்ச்சியான மாலை மாற்றும் சடங்கு.",
+    ev7h:"கன்யாதானம்", ev7p:"மணமகளின் தந்தை தன் மகளை ஆசியுடன் மணமகனிடம் ஒப்படைக்கும் புனித சடங்கு.",
+    ev8h:"மங்கல்ய தாரணம்", ev8p:"மணமகன் மணமகளின் கழுத்தில் மங்கல்யத்தை அணிவிக்கும் — திருமணத்தின் மையத் தருணம்.",
+    ev9h:"சப்தபதி", ev9p:"புனித அக்னியைச் சுற்றி இணைந்து எடுக்கும் ஏழு அடிகள், ஒவ்வொன்றும் எதிர்கால வாழ்க்கைக்கான ஒரு சபதம்.",
+    ev10h:"ஆசீர்வாதம்", ev10p:"பெரியோர்கள் புதுமணத் தம்பதியை ஆசீர்வதித்து, செழிப்பான வாழ்க்கைக்கு வாழ்த்துகிறார்கள்.",
+    ev11h:"நாகவல்லி சுபமுகூர்த்தம்", ev11p:"புனித திருமண சடங்குகளின் முறையான நிறைவைக் குறிக்கும் மங்களகரமான சடங்கு.",
+    ev12h:"பாரம்பரிய திருமண விருந்து", ev12p:"வாழைஇலையில் பரிமாறப்படும் பெரிய விருந்து, குடும்பத்தினருடனும் நண்பர்களுடனும் இணைப்பைக் கொண்டாடுகிறது.",
+
+    venueEyebrow: "✦ இடம் & பயணம் ✦",
+    venueTitle: "எங்களை அடைவது எப்படி",
+    directionsBtn: "வழிகளைப் பெறுக →",
+    travelAddressLbl: "முகவரி:", travelAddressVal: "12 கோவில் தெரு, மயிலாப்பூர், சென்னை, தமிழ்நாடு 600004",
+    travelLandmarkLbl: "அடையாளம்:", travelLandmarkVal: "கபாலீஸ்வரர் கோவிலுக்கு எதிரே",
+    travelParkingLbl: "வாகன நிறுத்தம்:", travelParkingVal: "இலவச வேலட் பார்க்கிங் வசதி உள்ளது",
+    travelCarLbl: "கார் மூலம்:", travelCarVal: "சென்னை நகர மையத்திலிருந்து கூட்சேரி சாலை வழியாக 20 நிமிடங்கள்",
+    travelTrainLbl: "ரயில் மூலம்:", travelTrainVal: "மயிலாப்பூர் MRTS நிலையம் — 5 நிமிட நடை தூரம்",
+    travelBusLbl: "பேருந்து மூலம்:", travelBusVal: "5, 18, 27B பேருந்துகள் இடத்தின் அருகே நிற்கும்",
+    travelFlightLbl: "விமானம் மூலம்:", travelFlightVal: "சென்னை சர்வதேச விமான நிலையம் — 45 நிமிட பயணம்",
+    travelHotelsLbl: "அருகிலுள்ள ஹோட்டல்கள்:", travelHotelsVal: "தாஜ் ஃபிஷர்மேன்ஸ் கோவ், ராடிசன் ப்ளூ எழும்பூர், ஐடிசி கிராண்ட் சோழா",
+
+    rsvpEyebrow: "✦ வருகை உறுதி ✦",
+    rsvpTitle: "நீங்கள் எங்களுடன் இணைவீர்களா?",
+    rsvpNameLbl: "விருந்தினர் பெயர்",
+    rsvpPhoneLbl: "தொலைபேசி எண்",
+    rsvpGuestsLbl: "விருந்தினர்கள் எண்ணிக்கை",
+    rsvpAttendLbl: "வருகை உறுதிப்படுத்தல்",
+    rsvpYes: "மகிழ்ச்சியுடன் வருகிறேன்",
+    rsvpNo: "வருந்துகிறேன், வர முடியாது",
+    rsvpSubmit: "RSVP அனுப்பு",
+    rsvpSuccess: "நன்றி! உங்கள் RSVP பெறப்பட்டது. 🙏",
+    rsvpError: "இப்போது உங்கள் RSVP-ஐ சேமிக்க முடியவில்லை — மீண்டும் முயற்சிக்கவும்.",
+
+    specialInvite: "“அன்புடனும் நன்றியுடனும் மகிழ்ச்சி நிறைந்த இதயத்துடனும், எங்கள் திருமணத்தைக் கொண்டாட உங்களையும் உங்கள் குடும்பத்தையும் JJ அன்புடன் அழைக்கிறார் — உங்கள் வருகையும் ஆசியும் எங்களை பெருமைப்படுத்தும்.”",
+
+    wishesEyebrow: "✦ விருந்தினர் வாழ்த்துகள் ✦",
+    wishesTitle: "உங்கள் ஆசிகளை பகிருங்கள்",
+    wishesDesc: "உங்கள் செய்தி இந்தச் சுவரில் அனைவரும் காணும்படி தோன்றும் — அன்பின் ஒரு வாழும் நினைவேடு.",
+    wishNameLbl: "பெயர்",
+    wishMsgLbl: "செய்தி",
+    wishSubmit: "ஆசி வழங்கு",
+    wishSuccess: "உங்கள் ஆசி சேர்க்கப்பட்டது. நன்றி! 🌸",
+    wishError: "இப்போது உங்கள் ஆசியை பதிவிட முடியவில்லை — மீண்டும் முயற்சிக்கவும்.",
+    wishesLoading: "ஆசிகள் ஏற்றப்படுகின்றன…",
+    wishesEmpty: "தம்பதியினருக்கு முதலில் ஆசி கூறுங்கள். 💛",
+
+    footerText: "அன்புடனும் ஆசியுடனும் — பிரியா & அர்ஜுன் · KVS குடும்பம்"
+  }
+};
+
+let currentLang = 'en';
+
+function applyLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang === 'ta' ? 'ta' : 'en';
+  const dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined){
+      if (el.tagName === 'OPTION' || el.tagName === 'INPUT' || el.tagName === 'BUTTON' || el.tagName === 'A' || (!el.querySelector('*'))) {
+        el.textContent = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
+    }
+  });
+  // Couple names swap to Tamil script when Tamil is active
+  const brideNameEl = document.getElementById('bride-name');
+  const groomNameEl = document.getElementById('groom-name');
+  if (brideNameEl) brideNameEl.textContent = lang === 'ta' ? CONFIG.brideTamil : CONFIG.bride;
+  if (groomNameEl) groomNameEl.textContent = lang === 'ta' ? CONFIG.groomTamil : CONFIG.groom;
+  document.getElementById('entrance-names').innerHTML =
+    lang === 'ta'
+      ? `${CONFIG.brideTamil} <span class="amp">&amp;</span> ${CONFIG.groomTamil}`
+      : `${CONFIG.bride} <span class="amp">&amp;</span> ${CONFIG.groom}`;
+
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> applyLanguage(btn.dataset.lang));
+});
+
+/* ==========================================================================
+   ENTRANCE SEQUENCE
+   ========================================================================== */
+document.getElementById('entrance-names').innerHTML = `${CONFIG.bride} <span class="amp">&amp;</span> ${CONFIG.groom}`;
+
+const entrance = document.getElementById('entrance');
+const openBtn = document.getElementById('open-invitation');
+const bgMusic = document.getElementById('bg-music');
+const musicControls = document.getElementById('music-controls');
+
+if (CONFIG.musicUrl) {
+  bgMusic.querySelector('source').src = CONFIG.musicUrl;
+  bgMusic.load();
+}
+
+/* ==========================================================================
+   AMBIENT MUSIC ENGINE
+   Built-in, royalty-free instrumental music generated live with the
+   WebAudio API — no external mp3 needed. A soft sustained pad plays under
+   a gentle plucked pentatonic melody (veena/santoor-like), looping for the
+   entire visit. If CONFIG.musicUrl is set to a hosted track, that plays
+   instead and this engine stays silent.
+   ========================================================================== */
+let audioCtx = null;
+let masterGain = null;
+let musicPlaying = false;
+let musicMuted = false;
+let musicVolumeLevel = 0.5;
+let padOscillators = [];
+let melodyTimeoutId = null;
+
+// A gentle major-pentatonic scale (Sa Re Ga Pa Dha), spanning two octaves
+const SCALE = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 784.00, 880.00];
+
+function ensureAudioContext(){
+  if (!audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = musicMuted ? 0 : musicVolumeLevel;
+    masterGain.connect(audioCtx.destination);
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function startPad(){
+  const now = audioCtx.currentTime;
+  const chordNotes = [130.81, 164.81, 196.00]; // soft C major triad, low register
+  padOscillators = chordNotes.map((freq, i)=>{
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.09, now + 3 + i*0.5);
+    osc.connect(gain).connect(masterGain);
+    osc.start(now);
+    return { osc, gain };
+  });
+}
+
+function stopPad(){
+  if (!audioCtx) return;
+  const now = audioCtx.currentTime;
+  padOscillators.forEach(({osc, gain})=>{
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(gain.gain.value, now);
+    gain.gain.linearRampToValueAtTime(0, now + 1.2);
+    osc.stop(now + 1.3);
+  });
+  padOscillators = [];
+}
+
+function pluckNote(freq, when, velocity){
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.0001, when);
+  gain.gain.exponentialRampToValueAtTime(velocity, when + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, when + 1.8);
+  osc.connect(gain).connect(masterGain);
+  osc.start(when);
+  osc.stop(when + 2);
+}
+
+function scheduleMelody(){
+  if (!musicPlaying) return;
+  const now = audioCtx.currentTime;
+  const note = SCALE[Math.floor(Math.random() * SCALE.length)];
+  pluckNote(note, now + 0.05, 0.11 + Math.random()*0.05);
+  const nextIn = 900 + Math.random() * 1100; // gentle, unhurried pacing
+  melodyTimeoutId = setTimeout(scheduleMelody, nextIn);
+}
+
+function startAmbientMusic(){
+  ensureAudioContext();
+  if (musicPlaying) return;
+  musicPlaying = true;
+  startPad();
+  scheduleMelody();
+  document.getElementById('music-icon').classList.add('playing');
+  document.getElementById('music-toggle').textContent = '⏸️';
+}
+
+function stopAmbientMusic(){
+  musicPlaying = false;
+  stopPad();
+  if (melodyTimeoutId) clearTimeout(melodyTimeoutId);
+  document.getElementById('music-icon').classList.remove('playing');
+  document.getElementById('music-toggle').textContent = '▶️';
+}
+
+function playTempleBellThenMusic(){
+  // Simple bell chime using the WebAudio API, no external asset required
+  try{
+    ensureAudioContext();
+    const now = audioCtx.currentTime;
+    [880, 1320, 1760].forEach((freq, i)=>{
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.0001, now + i*0.25);
+      gain.gain.exponentialRampToValueAtTime(0.25, now + i*0.25 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + i*0.25 + 1.6);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(now + i*0.25);
+      osc.stop(now + i*0.25 + 1.7);
+    });
+  }catch(e){ /* ignore audio errors */ }
+
+  if (CONFIG.musicUrl){
+    bgMusic.volume = musicVolumeLevel;
+    bgMusic.muted = musicMuted;
+    bgMusic.play().catch(()=>{});
+    document.getElementById('music-icon').classList.add('playing');
+    document.getElementById('music-toggle').textContent = '⏸️';
+  } else {
+    // Give the bell a moment to ring out before the ambient music fades in
+    setTimeout(()=> startAmbientMusic(), 1200);
+  }
+}
+
+openBtn.addEventListener('click', ()=>{
+  entrance.classList.add('open');
+  playTempleBellThenMusic();
+  setTimeout(()=> entrance.classList.add('hidden'), 1500);
+  setTimeout(()=> entrance.style.display = 'none', 2600);
+});
+
+/* ==========================================================================
+   MUSIC CONTROLS
+   ========================================================================== */
+const musicToggle = document.getElementById('music-toggle');
+const musicMute = document.getElementById('music-mute');
+const musicVolume = document.getElementById('music-volume');
+
+musicToggle.addEventListener('click', ()=>{
+  if (CONFIG.musicUrl){
+    if (bgMusic.paused){
+      bgMusic.play().catch(()=>{});
+      musicToggle.textContent='⏸️';
+      document.getElementById('music-icon').classList.add('playing');
+    } else {
+      bgMusic.pause();
+      musicToggle.textContent='▶️';
+      document.getElementById('music-icon').classList.remove('playing');
+    }
+  } else {
+    if (musicPlaying) stopAmbientMusic(); else startAmbientMusic();
+  }
+});
+musicMute.addEventListener('click', ()=>{
+  musicMuted = !musicMuted;
+  musicMute.textContent = musicMuted ? '🔇' : '🔊';
+  if (CONFIG.musicUrl){
+    bgMusic.muted = musicMuted;
+  } else if (masterGain){
+    masterGain.gain.setTargetAtTime(musicMuted ? 0 : musicVolumeLevel, audioCtx.currentTime, 0.05);
+  }
+});
+musicVolume.addEventListener('input', (e)=>{
+  musicVolumeLevel = parseFloat(e.target.value);
+  if (CONFIG.musicUrl){
+    bgMusic.volume = musicVolumeLevel;
+  } else if (masterGain && !musicMuted){
+    masterGain.gain.setTargetAtTime(musicVolumeLevel, audioCtx.currentTime, 0.05);
+  }
+});
+
+
+/* ==========================================================================
+   PETALS — continuous ambient canvas animation
+   ========================================================================== */
+(function(){
+  const canvas = document.getElementById('petal-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const colors = ['#e2803a','#c9a24b','#e9b9ab','#f0d597'];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const count = reduceMotion ? 0 : 26;
+
+  const petals = Array.from({length: count}, ()=> spawn());
+  function spawn(y){
+    return {
+      x: Math.random()*w,
+      y: y===undefined ? Math.random()*-h : y,
+      size: 6 + Math.random()*8,
+      speedY: 0.4 + Math.random()*0.8,
+      speedX: Math.sin(Math.random()*Math.PI),
+      rot: Math.random()*Math.PI*2,
+      rotSpeed: (Math.random()-0.5)*0.02,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      sway: Math.random()*Math.PI*2
+    };
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    petals.forEach(p=>{
+      p.y += p.speedY;
+      p.sway += 0.02;
+      p.x += Math.sin(p.sway)*0.6;
+      p.rot += p.rotSpeed;
+      if (p.y > h + 20){ Object.assign(p, spawn(-20)); }
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = 0.75;
+      ctx.beginPath();
+      ctx.ellipse(0,0,p.size,p.size*0.6,0,0,Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ==========================================================================
+   SCROLL REVEAL
+   ========================================================================== */
+const revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if (entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el=> io.observe(el));
+
+/* ==========================================================================
+   COUNTDOWN
+   ========================================================================== */
+const ceremonyDate = new Date(CONFIG.ceremony.start);
+function updateCountdown(){
+  const diff = ceremonyDate - new Date();
+  const el = (id,val)=> document.getElementById(id).textContent = String(Math.max(val,0)).padStart(2,'0');
+  if (diff <= 0){
+    el('cd-days',0); el('cd-hours',0); el('cd-mins',0); el('cd-secs',0);
+    return;
+  }
+  const days = Math.floor(diff/(1000*60*60*24));
+  const hours = Math.floor((diff/(1000*60*60))%24);
+  const mins = Math.floor((diff/(1000*60))%60);
+  const secs = Math.floor((diff/1000)%60);
+  el('cd-days',days); el('cd-hours',hours); el('cd-mins',mins); el('cd-secs',secs);
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ==========================================================================
+   CALENDAR: Google Calendar link + .ics download
+   ========================================================================== */
+function toGCalDate(d){
+  return d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+}
+document.getElementById('google-cal-btn').addEventListener('click', ()=>{
+  const start = new Date(CONFIG.ceremony.start);
+  const end = new Date(CONFIG.ceremony.end);
+  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(CONFIG.ceremony.title)}&dates=${toGCalDate(start)}/${toGCalDate(end)}&details=${encodeURIComponent(CONFIG.ceremony.description)}&location=${encodeURIComponent(CONFIG.ceremony.location)}`;
+  window.open(url, '_blank');
+});
+
+document.getElementById('ics-btn').addEventListener('click', ()=>{
+  const start = new Date(CONFIG.ceremony.start);
+  const end = new Date(CONFIG.ceremony.end);
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding Invitation//EN','BEGIN:VEVENT',
+    `UID:${Date.now()}@wedding-invitation`,
+    `DTSTAMP:${toGCalDate(new Date())}`,
+    `DTSTART:${toGCalDate(start)}`,
+    `DTEND:${toGCalDate(end)}`,
+    `SUMMARY:${CONFIG.ceremony.title}`,
+    `DESCRIPTION:${CONFIG.ceremony.description}`,
+    `LOCATION:${CONFIG.ceremony.location}`,
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'wedding-ceremony.ics';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+/* ==========================================================================
+   STORAGE — wraps window.storage with an in-memory fallback so RSVP/
+   wishes still work even if persistent storage isn't available in the
+   current preview/hosting environment (prevents hard submit errors).
+   ========================================================================== */
+const memoryStore = { rsvp: {}, wish: {} };
+const storageAvailable = () => typeof window.storage !== 'undefined' && window.storage !== null;
+
+async function storageSet(key, value, shared){
+  if (storageAvailable()){
+    try{ return await window.storage.set(key, value, shared); }
+    catch(e){ /* fall through to memory */ }
+  }
+  const bucket = key.startsWith('wish:') ? memoryStore.wish : memoryStore.rsvp;
+  bucket[key] = value;
+  return { key, value, shared };
+}
+async function storageListPrefixed(prefix, shared){
+  if (storageAvailable()){
+    try{
+      const res = await window.storage.list(prefix, shared);
+      return (res && res.keys) || [];
+    }catch(e){ /* fall through to memory */ }
+  }
+  const bucket = prefix === 'wish:' ? memoryStore.wish : memoryStore.rsvp;
+  return Object.keys(bucket);
+}
+async function storageGet(key, shared){
+  if (storageAvailable()){
+    try{ return await window.storage.get(key, shared); }
+    catch(e){ /* fall through to memory */ }
+  }
+  const bucket = key.startsWith('wish:') ? memoryStore.wish : memoryStore.rsvp;
+  return bucket[key] !== undefined ? { key, value: bucket[key], shared } : null;
+}
+async function storageDelete(key, shared){
+  if (storageAvailable()){
+    try{ return await window.storage.delete(key, shared); }
+    catch(e){ /* fall through to memory */ }
+  }
+  const bucket = key.startsWith('wish:') ? memoryStore.wish : memoryStore.rsvp;
+  delete bucket[key];
+  return { key, deleted: true, shared };
+}
+
+/* ==========================================================================
+   RSVP FORM  (persisted via storage helper above; falls back gracefully)
+   ========================================================================== */
+const rsvpForm = document.getElementById('rsvp-form');
+rsvpForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const btn = document.getElementById('rsvp-submit');
+  const msg = document.getElementById('rsvp-msg');
+  const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  btn.disabled = true;
+  const entry = {
+    name: document.getElementById('rsvp-name').value.trim(),
+    phone: document.getElementById('rsvp-phone').value.trim(),
+    guests: document.getElementById('rsvp-guests').value,
+    attendance: document.getElementById('rsvp-attend').value,
+    ts: Date.now()
+  };
+  try{
+    const key = `rsvp:${entry.ts}`;
+    await storageSet(key, JSON.stringify(entry), true);
+    msg.textContent = dict.rsvpSuccess;
+    rsvpForm.reset();
+  }catch(err){
+    msg.textContent = dict.rsvpError;
+  }finally{
+    btn.disabled = false;
+  }
+});
+
+/* ==========================================================================
+   MANAGE RSVPs — passcode-gated view listing every RSVP submitted, with
+   a delete button per row. Uses the same CONFIG.adminPasscode as the
+   blessings moderation feature above.
+   ========================================================================== */
+const manageRsvpBtn = document.getElementById('manage-rsvp-btn');
+const rsvpListWrap = document.getElementById('rsvp-list-wrap');
+const rsvpListEl = document.getElementById('rsvp-list');
+let rsvpManageMode = false;
+
+async function loadRsvps(){
+  try{
+    const keys = await storageListPrefixed('rsvp:', true);
+    const rsvps = [];
+    for (const k of keys){
+      try{
+        const res = await storageGet(k, true);
+        if (res && res.value){
+          const parsed = JSON.parse(res.value);
+          parsed._key = k;
+          rsvps.push(parsed);
         }
+      }catch(e){ /* skip missing */ }
+    }
+    rsvps.sort((a,b)=> b.ts - a.ts);
+    renderRsvps(rsvps);
+  }catch(e){
+    renderRsvps([]);
+  }
+}
 
-        function toggleLanguage() {
-            const newLang = currentLang === 'en' ? 'ta' : 'en';
-            updateLanguage(newLang);
+function renderRsvps(list){
+  if (!list.length){
+    rsvpListEl.innerHTML = '<p class="rsvp-summary">No RSVPs yet.</p>';
+    return;
+  }
+  const totalGuests = list.reduce((sum, r)=> sum + (parseInt(r.guests,10) || 0), 0);
+  const attending = list.filter(r=> r.attendance === 'Joyfully Attending').length;
+  const declining = list.filter(r=> r.attendance === 'Regretfully Declining').length;
+
+  const rows = list.map(r => `
+    <tr>
+      <td>${escapeHtml(r.name)}</td>
+      <td>${escapeHtml(r.phone)}</td>
+      <td>${escapeHtml(String(r.guests))}</td>
+      <td>${escapeHtml(r.attendance)}</td>
+      <td class="rsvp-del"><button class="rsvp-delete-btn" data-key="${escapeHtml(r._key)}" title="Delete this RSVP" aria-label="Delete this RSVP">✕</button></td>
+    </tr>
+  `).join('');
+
+  rsvpListEl.innerHTML = `
+    <p class="rsvp-summary">${list.length} response${list.length===1?'':'s'} · ${attending} attending · ${declining} declining · ${totalGuests} total guests</p>
+    <div style="overflow-x:auto;">
+      <table class="rsvp-table">
+        <thead><tr><th>Name</th><th>Phone</th><th>Guests</th><th>Attendance</th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+
+  rsvpListEl.querySelectorAll('.rsvp-delete-btn').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      if (!confirm('Remove this RSVP? This cannot be undone.')) return;
+      await storageDelete(btn.dataset.key, true);
+      loadRsvps();
+    });
+  });
+}
+
+manageRsvpBtn.addEventListener('click', async ()=>{
+  if (rsvpManageMode){
+    rsvpManageMode = false;
+    manageRsvpBtn.textContent = '🔒 Manage RSVPs';
+    rsvpListWrap.style.display = 'none';
+    return;
+  }
+  const entered = prompt('Enter the passcode to manage RSVPs:');
+  if (entered === null) return;
+  if (entered === CONFIG.adminPasscode){
+    rsvpManageMode = true;
+    manageRsvpBtn.textContent = '🔓 Hide RSVPs';
+    rsvpListWrap.style.display = 'block';
+    loadRsvps();
+  } else {
+    alert('Incorrect passcode.');
+  }
+});
+
+
+/* ==========================================================================
+   GUEST WISHES WALL (persisted via storage helper; falls back gracefully)
+   An admin-only "Manage blessings" link reveals a small delete button on
+   each message, gated by CONFIG.adminPasscode, so you can remove any
+   inappropriate or unwanted post after it's been submitted.
+   ========================================================================== */
+const wishForm = document.getElementById('wish-form');
+const wishesWall = document.getElementById('wishes-wall');
+const manageWishesBtn = document.getElementById('manage-wishes-btn');
+let wishesAdminMode = false;
+
+function renderWishes(list){
+  const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  if (!list.length){
+    wishesWall.innerHTML = `<p class="wishes-empty">${escapeHtml(dict.wishesEmpty)}</p>`;
+    return;
+  }
+  wishesWall.innerHTML = list.map(w => `
+    <div class="wish-card" data-key="${escapeHtml(w._key)}">
+      ${wishesAdminMode ? `<button class="wish-delete-btn" data-key="${escapeHtml(w._key)}" title="Delete this message" aria-label="Delete this message">✕</button>` : ''}
+      <div class="wname">${escapeHtml(w.name)}</div>
+      <div class="wmsg">${escapeHtml(w.message)}</div>
+    </div>
+  `).join('');
+
+  if (wishesAdminMode){
+    wishesWall.querySelectorAll('.wish-delete-btn').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        if (!confirm('Remove this blessing? This cannot be undone.')) return;
+        await storageDelete(btn.dataset.key, true);
+        loadWishes();
+      });
+    });
+  }
+}
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+async function loadWishes(){
+  try{
+    const keys = await storageListPrefixed('wish:', true);
+    const wishes = [];
+    for (const k of keys){
+      try{
+        const res = await storageGet(k, true);
+        if (res && res.value){
+          const parsed = JSON.parse(res.value);
+          parsed._key = k;
+          wishes.push(parsed);
         }
+      }catch(e){ /* skip missing */ }
+    }
+    wishes.sort((a,b)=> b.ts - a.ts);
+    renderWishes(wishes);
+  }catch(e){
+    renderWishes([]);
+  }
+}
+loadWishes();
 
-        // Petals
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = (Math.random() * 7 + 9) + 's';
-            petal.style.opacity = Math.random() * 0.6 + 0.5;
-            petal.style.transform = `rotate(${Math.random()*360}deg)`;
-            document.getElementById('petals').appendChild(petal);
-            setTimeout(() => petal.remove(), 20000);
-        }
+wishForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const btn = document.getElementById('wish-submit');
+  const msg = document.getElementById('wish-msg');
+  const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  btn.disabled = true;
+  const entry = {
+    name: document.getElementById('wish-name').value.trim(),
+    message: document.getElementById('wish-message').value.trim(),
+    ts: Date.now()
+  };
+  try{
+    await storageSet(`wish:${entry.ts}`, JSON.stringify(entry), true);
+    msg.textContent = dict.wishSuccess;
+    wishForm.reset();
+    loadWishes();
+  }catch(err){
+    msg.textContent = dict.wishError;
+  }finally{
+    btn.disabled = false;
+  }
+});
 
-        function openInvitation() {
-            document.getElementById('opening').scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => document.getElementById('welcome').scrollIntoView({ behavior: 'smooth' }), 800);
-        }
-
-        // Countdown
-        function countdown() {
-            const wedding = new Date("2026-12-20T08:30:00").getTime();
-            const timerEl = document.getElementById('timer');
-
-            setInterval(() => {
-                const now = new Date().getTime();
-                const diff = wedding - now;
-
-                if (diff < 0) {
-                    timerEl.innerHTML = `<h2 style="color: var(--gold)">The auspicious moment has arrived!</h2>`;
-                    return;
-                }
-
-                const days = Math.floor(diff / (1000*60*60*24));
-                const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-                const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
-                const secs = Math.floor((diff % (1000*60)) / 1000);
-
-                timerEl.innerHTML = `
-                    <div class="time-box"><div class="time-num">${days}</div><div>Days</div></div>
-                    <div class="time-box"><div class="time-num">${hours}</div><div>Hours</div></div>
-                    <div class="time-box"><div class="time-num">${mins}</div><div>Minutes</div></div>
-                    <div class="time-box"><div class="time-num">${secs}</div><div>Seconds</div></div>
-                `;
-            }, 1000);
-        }
-
-        // Comments (same as before)
-        let comments = [];
-
-        function postComment() {
-            const name = document.getElementById('cname').value.trim();
-            const msg = document.getElementById('cmsg').value.trim();
-            
-            if (!name || !msg) {
-                alert(currentLang === 'en' ? "Please fill both fields" : "தயவுசெய்து இரண்டு புலங்களையும் நிரப்பவும்");
-                return;
-            }
-
-            comments.unshift({
-                name: name,
-                msg: msg,
-                time: new Date().toLocaleDateString()
-            });
-
-            renderComments();
-            document.getElementById('cname').value = '';
-            document.getElementById('cmsg').value = '';
-        }
-
-        function renderComments() {
-            const container = document.getElementById('comments-display');
-            container.innerHTML = `<h3 style="text-align:center; color:var(--gold); margin-bottom:20px;">${currentLang === 'en' ? 'Received Blessings' : 'பெறப்பட்ட ஆசிகள்'}</h3>`;
-            
-            comments.forEach(c => {
-                const div = document.createElement('div');
-                div.style.cssText = `background:rgba(255,255,255,0.08); padding:22px; margin:18px 0; border-radius:12px; border-left:5px solid var(--gold);`;
-                div.innerHTML = `<strong>${c.name}</strong> <small>(${c.time})</small><p style="margin-top:12px;">${c.msg}</p>`;
-                container.appendChild(div);
-            });
-        }
-
-        // Initialize
-        window.onload = () => {
-            // Initial language
-            updateLanguage('en');
-
-            // Petals
-            setInterval(createPetal, 280);
-            for (let i = 0; i < 12; i++) createPetal();
-
-            // Countdown
-            countdown();
-
-            // Demo comment
-            comments = [{
-                name: currentLang === 'en' ? "Family Elder" : "குடும்ப மூத்தவர்",
-                msg: currentLang === 'en' ? "May the divine couple be blessed with lifelong happiness and prosperity!" : "தெய்வீக தம்பதியினர் நீண்ட ஆயுள் மகிழ்ச்சியுடன் வாழ வாழ்த்துக்கள்!",
-                time: "Just now"
-            }];
-            renderComments();
-        };
-    </script>
+manageWishesBtn.addEventListener('click', ()=>{
+  if (wishesAdminMode){
+    wishesAdminMode = false;
+    manageWishesBtn.textContent = '🔒 Manage blessings';
+    loadWishes();
+    return;
+  }
+  const entered = prompt('Enter the passcode to manage blessings:');
+  if (entered === null) return;
+  if (entered === CONFIG.adminPasscode){
+    wishesAdminMode = true;
+    manageWishesBtn.textContent = '🔓 Exit manage mode';
+    loadWishes();
+  } else {
+    alert('Incorrect passcode.');
+  }
+});
+</script>
 </body>
 </html>
